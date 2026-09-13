@@ -1,7 +1,7 @@
 # 🧱 Dev Stack Builder
 
 ## 📖 Description
-Dev Stack is a React-based web application that helps developers explore various frontend, backend, database, and tooling technologies. Users can browse a catalog of tools and build their own personalized "stack" for their next project by selecting their favorite technologies.
+Picking a tech stack for a new project usually means jumping between a dozen tabs — docs, blog posts, "best of 2026" lists. Dev Stack Builder puts that whole decision in one place: browse frontend, backend, database, and tooling options side by side, and drag your favorites into a personal "stack" so you actually walk away with a plan instead of more open tabs.
 
 ## 🛠️ Technology Used
 - **React.js** (via Vite)
@@ -10,34 +10,34 @@ Dev Stack is a React-based web application that helps developers explore various
 - **JSON** for storing local technology data
 
 ## ✨ 3 Key Features
-1. **Interactive Stack Builder:** Users can easily add or remove technologies from their personal "Your Stack" sidebar. The app prevents duplicate entries and shows instant visual feedback with toast notifications.
-2. **Fully Responsive Layout:** The application includes a sticky navbar with a mobile hamburger menu and a responsive grid layout that adapts from 3 columns on desktop to 1 column on mobile screens.
-3. **Dynamic Data Fetching:** Technology data is fetched asynchronously from a local JSON file, complete with a loading state before the UI renders.
+1. **Build your own stack** — add or remove technologies from the "Your Stack" panel with one click. Try to add the same tool twice and it'll warn you instead of silently duplicating it, and every action gets a toast so you always know what just happened.
+2. **Actually responsive, not just resized** — a sticky navbar that turns into a hamburger menu on phones, and a card grid that goes from 3 columns down to 1 as the screen shrinks, so it holds up on mobile, tablet, and desktop alike.
+3. **Data-driven, not hardcoded** — every technology card is rendered from a local JSON file that's fetched asynchronously, with a real loading state in between so the UI never flashes empty content.
 
 ---
 
 ## ❓ React Q&A
 
 **1. What is JSX, and why is it used in React?**
-JSX is a syntax extension that allows us to write HTML-like code directly inside our JavaScript files. React uses it because it makes writing and reading components much easier—we can see our UI structure and our JavaScript logic combined in one place.
+JSX lets you write markup that looks like HTML right inside your JavaScript. It's used because it keeps a component's structure and its logic in the same place — you can look at one file and immediately see what renders and why, instead of piecing it together from separate `createElement` calls.
 
 **2. What is the difference between props and state?**
-Props are read-only data passed from a parent component down to a child component. State is internal data managed by the component itself that can change over time. In short: props are passed in, state is managed inside.
+Props are handed to a component by its parent and the component can't change them — they're read-only from its point of view. State is data the component owns and can update itself, usually with `useState`. Simple way to remember it: props come from above, state lives inside.
 
 **3. What does the `useState` hook do, and where did you use it in this project?**
-`useState` allows a component to remember data and update it. Whenever the state updates, the component re-renders. I used it in this project to store the fetched JSON data, track which technologies were added to "Your Stack," and manage the loading state.
+It gives a component a piece of data that can change, and re-renders that component whenever it does. In this project it holds the fetched technology list, the current "stack" of selected items, and the loading flag — plus, in the navbar, whether the mobile menu is open.
 
 **4. What does the `useEffect` hook do, and why did you need it to load the JSON data?**
-`useEffect` is used to run side effects (like data fetching) outside of the normal render cycle. I needed it because fetching the JSON file is an asynchronous task. By using `useEffect` with an empty dependency array `[]`, I made sure the data was fetched exactly once when the component first loaded.
+`useEffect` runs code after render, for things that reach outside React — like fetching data. Loading the JSON file is exactly that kind of side effect, so it can't just happen during render. Using `useEffect` with an empty dependency array means the fetch runs once, right when the component first mounts, and nowhere else.
 
 **5. Why does every item in a `.map()` list need a unique `key` prop?**
-React uses the `key` prop to keep track of individual elements in a list. If an item is added, removed, or changed, the unique key helps React figure out exactly which item needs to be updated without having to re-render the entire list, making the app much faster and preventing bugs.
+React needs some way to tell which rendered item is which between renders. A stable, unique key lets it match old items to new ones and only update what actually changed — added, removed, or reordered — instead of tearing down and rebuilding the whole list. Skip the key (or reuse index-based ones carelessly) and you risk mismatched state or weird re-render bugs.
 
 **6. What is conditional rendering? Show one place you used it.**
-Conditional rendering means showing a different UI based on a specific condition (like an `if-else` statement). I used it in the "Your Stack" section: if the user hasn't selected anything, it displays an empty state message. If they have selected items, it renders the list of their chosen technologies instead.
+It's rendering different UI depending on a condition, instead of always showing the same thing. The clearest example here is the "Your Stack" panel: if nothing's been added yet, it shows a friendly empty-state message; the moment you add something, that message swaps out for the actual list of selected technologies.
 
 **7. How do you pass data from a parent component to a child component, and how does a child send something back to the parent?**
-A parent passes data down to a child using `props`. To send data back up, the parent passes a function down to the child as a prop. When an action happens in the child (like clicking the "Add to Stack" button), the child calls that function and passes the necessary data as an argument, which then updates the parent's state.
+Parent to child is just props — you pass values down like `<TechCard tech={tech} />`. Going the other way, the parent hands the child a function as a prop (like `onAdd`), and the child calls it when something happens, usually passing along whatever data is relevant. That's how a click on "Add to Stack" inside `TechCard` ends up updating state that actually lives in `TechnologyGrid`.
 
 ---
 
