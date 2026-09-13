@@ -44,4 +44,4 @@ Parent to child is just props — you pass values down like `<TechCard tech={tec
 ## 📤 Submission Links
 
 - **GitHub Repository Link:** https://github.com/mdfahadhosen20/devstack-project
-- **Live Site Link:**
+- **Live Site Link:** https://devstack-project-rouge.vercel.app/
