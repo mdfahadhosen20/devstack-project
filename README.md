@@ -104,5 +104,5 @@ needing to know how the parent's state actually works.
 
 ## 📤 Submission
 
-- GitHub Repository Link:
-- Live Site Link:
+- GitHub Repository Link: https://github.com/mdfahadhosen20/devstack-project
+- Live Site Link: (not deployed yet)
