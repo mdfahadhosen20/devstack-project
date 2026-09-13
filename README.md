@@ -1,5 +1,7 @@
 # 🧱 Dev Stack — Build Your Ideal Development Stack
 
+> Assignment 5 (A-5): Dev Stack Builder Website
+
 Dev Stack is a small React web app that helps developers explore frontend,
 backend, database, and tooling technologies, and put together their own
 personal "stack" by picking the tools they'd use on their next project.
